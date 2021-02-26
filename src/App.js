@@ -32,7 +32,7 @@ const App = () => {
         <p className="mt-2">Listing repositories for the organization: <strong>{orgName}</strong></p>
       </div>
       <div className="row mb-3 ">
-        <SortBy handleSortAlphabetical={sortByAlphabetical} handleSortStargazer={sortByStargazer} />
+        <SortBy handleSortAlphabetical={sortByAlphabetical} handleSortStargazer={sortByStargazer} isError={isFetchError} />
       </div>
       <div className="row mb-3 ">
         {isLoading ?
