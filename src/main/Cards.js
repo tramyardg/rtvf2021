@@ -19,7 +19,7 @@ const Cards = ({ repos }) => {
         </Card>
       )}
     </CardColumns>
-  );  
+  );
 }
 
 export default Cards;
