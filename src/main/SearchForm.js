@@ -24,8 +24,9 @@ const SearchForm = ({
     } else {
       preventRefreshOnSubmit(e);
       handleSetIsLoading(true);
-      await MainUtil.fetchRepos(orgName).then((jsonResponse) => {
-        handleSetRepos(jsonResponse);
+      await MainUtil.fetchRepos(orgName).then((reponse) => {
+        // Req 5. default in descending order (largest to smallest)
+        handleSetRepos(MainUtil.stargazerSorter(reponse));
         handleSetIsLoading(false);
         handleIsFetchError(false);
       }).catch(() => {
