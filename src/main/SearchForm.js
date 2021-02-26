@@ -3,7 +3,12 @@ import React, { useState } from "react";
 import { Button, Form, Col } from 'react-bootstrap';
 import * as MainUtil from "./MainUtil";
 
-const SearchForm = ({ handleSetOrgName, handleSetRepos, handleSetIsLoading }) => {
+const SearchForm = ({
+  handleSetOrgName,
+  handleSetRepos,
+  handleSetIsLoading,
+  handleIsFetchError
+}) => {
   const [validated, setValidated] = useState(false);
   const [orgName, setOrgName] = useState("");
 
@@ -22,9 +27,11 @@ const SearchForm = ({ handleSetOrgName, handleSetRepos, handleSetIsLoading }) =>
       await MainUtil.fetchRepos(orgName).then((jsonResponse) => {
         handleSetRepos(jsonResponse);
         handleSetIsLoading(false);
+        handleIsFetchError(false);
       }).catch(() => {
         handleSetRepos([]);
         handleSetIsLoading(false);
+        handleIsFetchError(true);
       })
     }
     setValidated(true);

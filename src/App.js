@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./main/main.css";
-import { Spinner } from "react-bootstrap";
+import { Spinner, Alert } from "react-bootstrap";
 import SearchForm from "./main/SearchForm";
 import SortBy from "./main/SortBy";
 import Cards from "./main/Cards";
@@ -11,6 +11,7 @@ const App = () => {
   const [orgName, setOrgName] = useState("");
   const [repos, setRepos] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isFetchError, setIsFetchError] = useState(false);
 
   return (
     <div className="container">
@@ -19,6 +20,7 @@ const App = () => {
           handleSetOrgName={setOrgName}
           handleSetRepos={setRepos}
           handleSetIsLoading={setIsLoading}
+          handleIsFetchError={setIsFetchError}
         />
       </div>
       <div className="row mb-3 ">
@@ -35,6 +37,9 @@ const App = () => {
           <Cards repos={repos} />
         }
       </div>
+      {
+        isFetchError && <Alert key="error" variant="danger">This organization may not exists! Please try again.</Alert>
+      }
     </div>
   );
 }
