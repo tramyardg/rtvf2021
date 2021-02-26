@@ -1,9 +1,11 @@
 
 import React, { useState } from "react";
 import { Button, Form, Col } from 'react-bootstrap';
+import * as MainUtil from "./MainUtil";
 
-const SearchForm = ({ setOrgName }) => {
+const SearchForm = ({ handleSetOrgName, handleSetRepos }) => {
   const [validated, setValidated] = useState(false);
+  const [orgName, setOrgName] = useState("");
 
   const preventRefreshOnSubmit = e => {
     e.preventDefault();
@@ -16,11 +18,20 @@ const SearchForm = ({ setOrgName }) => {
       preventRefreshOnSubmit(e);
     } else {
       preventRefreshOnSubmit(e);
+      await MainUtil.fetchRepos(orgName).then((jsonResponse) => {
+        handleSetRepos(jsonResponse);
+      }).catch(() => {
+        handleSetRepos([]);
+      })
     }
     setValidated(true);
   };
 
-  const handleSearchInput = e => setOrgName(e.target.value);
+  const handleSearchInput = e => {
+    const org = e.target.value;
+    handleSetOrgName(org);
+    setOrgName(org);
+  }
 
   return (
     <Form noValidate validated={validated} onSubmit={handleSubmit}>
