@@ -8,7 +8,13 @@ async function fetchRepos(orgName) {
   if (response.ok) {
     return response.json();
   } else {
-    throw new Error('Error');
+    const errorObj = {
+      error: {
+        name: 'not found',
+        desc: 'GitHub organization not found'
+      }
+    };
+    throw new Error(errorObj.error.name);
   }
 }
 
