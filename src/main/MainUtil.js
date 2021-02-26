@@ -12,6 +12,16 @@ async function fetchRepos(orgName) {
   }
 }
 
+function nameSorter(repos) {
+  return [...repos].sort((a, b) => a.name.localeCompare(b.name));
+}
+
+function stargazerSorter(repos) {
+  return [...repos].sort((a, b) => b.stargazers_count - a.stargazers_count);
+}
+
 module.exports = {
-  fetchRepos
+  fetchRepos,
+  nameSorter,
+  stargazerSorter
 }

@@ -6,12 +6,17 @@ import { Spinner, Alert } from "react-bootstrap";
 import SearchForm from "./main/SearchForm";
 import SortBy from "./main/SortBy";
 import Cards from "./main/Cards";
+import { nameSorter, stargazerSorter } from "./main/MainUtil";
 
 const App = () => {
   const [orgName, setOrgName] = useState("");
   const [repos, setRepos] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isFetchError, setIsFetchError] = useState(false);
+
+  const sortByAlphabetical = () => setRepos(nameSorter(repos));
+
+  const sortByStargazer = () => setRepos(stargazerSorter(repos));
 
   return (
     <div className="container">
@@ -27,7 +32,7 @@ const App = () => {
         <p className="mt-2">Listing repositories for the organization: <strong>{orgName}</strong></p>
       </div>
       <div className="row mb-3 ">
-        <SortBy />
+        <SortBy handleSortAlphabetical={sortByAlphabetical} handleSortStargazer={sortByStargazer} />
       </div>
       <div className="row mb-3 ">
         {isLoading ?
@@ -37,9 +42,7 @@ const App = () => {
           <Cards repos={repos} />
         }
       </div>
-      {
-        isFetchError && <Alert key="error" variant="danger">This organization may not exists! Please try again.</Alert>
-      }
+      {isFetchError && <Alert key="error" variant="danger">This organization may not exists! Please try again.</Alert>}
     </div>
   );
 }

@@ -7,7 +7,7 @@ const Cards = ({ repos }) => {
       {repos.map((item, i) =>
         <Card key={i}>
           <Card.Body>
-            <Card.Title><a href={item.html_url}>{item.name}</a></Card.Title>
+            <Card.Title><a href={item.html_url} target="_blank" rel="noreferrer">{item.name}</a></Card.Title>
             <Card.Text>
               {item.description}
             </Card.Text>
