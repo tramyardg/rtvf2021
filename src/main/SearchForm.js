@@ -1,6 +1,5 @@
 
 import React, { useState } from "react";
-// import './Main.css';
 import { Button, Form, Col } from 'react-bootstrap';
 
 const SearchForm = ({ setOrgName }) => {
